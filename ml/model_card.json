@@ -1,0 +1,559 @@
+{
+  "format": "landslide-ensemble/1",
+  "model_name": "bhoomi-drishti-landslide-hazard",
+  "model_version": "1.0.0",
+  "feature_schema_version": "1.0.0",
+  "feature_order": [
+    "rainfall_1h",
+    "rainfall_6h",
+    "rainfall_24h",
+    "rainfall_72h",
+    "rainfall_7d",
+    "rainfall_anomaly",
+    "elevation",
+    "slope",
+    "soil_moisture",
+    "temperature",
+    "humidity",
+    "vegetation_index",
+    "historical_landslide_count",
+    "distance_to_river",
+    "soil_type",
+    "land_cover"
+  ],
+  "backend": "numpy",
+  "member_format": "numpy-gbm-dict",
+  "hyperparams": {
+    "n_estimators": 300,
+    "learning_rate": 0.09,
+    "max_depth": 4,
+    "min_child_weight": 12.0,
+    "reg_lambda": 2.0,
+    "subsample": 0.85,
+    "colsample_bytree": 0.9
+  },
+  "trained_at": "2026-09-02T14:40:46Z",
+  "training_seconds": 20.79,
+  "training_rows": 24000,
+  "split_sizes": {
+    "train": 16880,
+    "validation": 3560,
+    "test": 3560
+  },
+  "regions": {
+    "total": 74,
+    "train": 52,
+    "validation": 11,
+    "test": 11
+  },
+  "metrics": {
+    "train": {
+      "n": 16880,
+      "positive_rate": 0.1149,
+      "roc_auc": 0.9144,
+      "pr_auc": 0.6666,
+      "brier": 0.0624,
+      "log_loss": 0.2144,
+      "mean_predicted": 0.1126,
+      "ece": 0.0263,
+      "calibration": [
+        {
+          "bin_low": 0.0,
+          "bin_high": 0.1,
+          "count": 12309,
+          "mean_predicted": 0.0383,
+          "observed_rate": 0.0219
+        },
+        {
+          "bin_low": 0.1,
+          "bin_high": 0.2,
+          "count": 2101,
+          "mean_predicted": 0.1393,
+          "observed_rate": 0.1728
+        },
+        {
+          "bin_low": 0.2,
+          "bin_high": 0.3,
+          "count": 828,
+          "mean_predicted": 0.2431,
+          "observed_rate": 0.2959
+        },
+        {
+          "bin_low": 0.3,
+          "bin_high": 0.4,
+          "count": 461,
+          "mean_predicted": 0.35,
+          "observed_rate": 0.436
+        },
+        {
+          "bin_low": 0.4,
+          "bin_high": 0.5,
+          "count": 339,
+          "mean_predicted": 0.4489,
+          "observed_rate": 0.5044
+        },
+        {
+          "bin_low": 0.5,
+          "bin_high": 0.6,
+          "count": 217,
+          "mean_predicted": 0.5472,
+          "observed_rate": 0.682
+        },
+        {
+          "bin_low": 0.6,
+          "bin_high": 0.7,
+          "count": 151,
+          "mean_predicted": 0.6492,
+          "observed_rate": 0.7219
+        },
+        {
+          "bin_low": 0.7,
+          "bin_high": 0.8,
+          "count": 138,
+          "mean_predicted": 0.7495,
+          "observed_rate": 0.8261
+        },
+        {
+          "bin_low": 0.8,
+          "bin_high": 0.9,
+          "count": 184,
+          "mean_predicted": 0.8526,
+          "observed_rate": 0.9348
+        },
+        {
+          "bin_low": 0.9,
+          "bin_high": 1.0,
+          "count": 152,
+          "mean_predicted": 0.9457,
+          "observed_rate": 0.9737
+        }
+      ]
+    },
+    "validation": {
+      "n": 3560,
+      "positive_rate": 0.0986,
+      "roc_auc": 0.7836,
+      "pr_auc": 0.4171,
+      "brier": 0.0724,
+      "log_loss": 0.263,
+      "mean_predicted": 0.0933,
+      "ece": 0.0107,
+      "calibration": [
+        {
+          "bin_low": 0.0,
+          "bin_high": 0.1,
+          "count": 2703,
+          "mean_predicted": 0.0377,
+          "observed_rate": 0.0459
+        },
+        {
+          "bin_low": 0.1,
+          "bin_high": 0.2,
+          "count": 432,
+          "mean_predicted": 0.1396,
+          "observed_rate": 0.1505
+        },
+        {
+          "bin_low": 0.2,
+          "bin_high": 0.3,
+          "count": 177,
+          "mean_predicted": 0.2426,
+          "observed_rate": 0.2429
+        },
+        {
+          "bin_low": 0.3,
+          "bin_high": 0.4,
+          "count": 96,
+          "mean_predicted": 0.3466,
+          "observed_rate": 0.2917
+        },
+        {
+          "bin_low": 0.4,
+          "bin_high": 0.5,
+          "count": 50,
+          "mean_predicted": 0.4482,
+          "observed_rate": 0.44
+        },
+        {
+          "bin_low": 0.5,
+          "bin_high": 0.6,
+          "count": 26,
+          "mean_predicted": 0.5455,
+          "observed_rate": 0.4231
+        },
+        {
+          "bin_low": 0.6,
+          "bin_high": 0.7,
+          "count": 30,
+          "mean_predicted": 0.6474,
+          "observed_rate": 0.6667
+        },
+        {
+          "bin_low": 0.7,
+          "bin_high": 0.8,
+          "count": 19,
+          "mean_predicted": 0.7356,
+          "observed_rate": 0.7895
+        },
+        {
+          "bin_low": 0.8,
+          "bin_high": 0.9,
+          "count": 21,
+          "mean_predicted": 0.8567,
+          "observed_rate": 0.8571
+        },
+        {
+          "bin_low": 0.9,
+          "bin_high": 1.0,
+          "count": 6,
+          "mean_predicted": 0.9236,
+          "observed_rate": 0.8333
+        }
+      ]
+    },
+    "test": {
+      "n": 3560,
+      "positive_rate": 0.1037,
+      "roc_auc": 0.8254,
+      "pr_auc": 0.5245,
+      "brier": 0.0681,
+      "log_loss": 0.2474,
+      "mean_predicted": 0.0944,
+      "ece": 0.0093,
+      "calibration": [
+        {
+          "bin_low": 0.0,
+          "bin_high": 0.1,
+          "count": 2747,
+          "mean_predicted": 0.0381,
+          "observed_rate": 0.0426
+        },
+        {
+          "bin_low": 0.1,
+          "bin_high": 0.2,
+          "count": 406,
+          "mean_predicted": 0.1389,
+          "observed_rate": 0.1453
+        },
+        {
+          "bin_low": 0.2,
+          "bin_high": 0.3,
+          "count": 133,
+          "mean_predicted": 0.2428,
+          "observed_rate": 0.2556
+        },
+        {
+          "bin_low": 0.3,
+          "bin_high": 0.4,
+          "count": 77,
+          "mean_predicted": 0.3451,
+          "observed_rate": 0.3636
+        },
+        {
+          "bin_low": 0.4,
+          "bin_high": 0.5,
+          "count": 61,
+          "mean_predicted": 0.4449,
+          "observed_rate": 0.459
+        },
+        {
+          "bin_low": 0.5,
+          "bin_high": 0.6,
+          "count": 53,
+          "mean_predicted": 0.5513,
+          "observed_rate": 0.6415
+        },
+        {
+          "bin_low": 0.6,
+          "bin_high": 0.7,
+          "count": 45,
+          "mean_predicted": 0.6474,
+          "observed_rate": 0.7556
+        },
+        {
+          "bin_low": 0.7,
+          "bin_high": 0.8,
+          "count": 17,
+          "mean_predicted": 0.74,
+          "observed_rate": 0.8824
+        },
+        {
+          "bin_low": 0.8,
+          "bin_high": 0.9,
+          "count": 17,
+          "mean_predicted": 0.8467,
+          "observed_rate": 0.9412
+        },
+        {
+          "bin_low": 0.9,
+          "bin_high": 1.0,
+          "count": 4,
+          "mean_predicted": 0.9158,
+          "observed_rate": 1.0
+        }
+      ]
+    }
+  },
+  "label_noise_ceiling": {
+    "note": "ROC AUC of the generating probability itself against the sampled labels - the irreducible ceiling for any model of this data.",
+    "test_roc_auc": 0.8397,
+    "model_fraction_of_ceiling": 0.983,
+    "correlation_with_true_probability": 0.9522
+  },
+  "importance_method": "split-gain",
+  "feature_importance": [
+    {
+      "feature": "soil_moisture",
+      "group": "Soil moisture",
+      "importance": 0.0965
+    },
+    {
+      "feature": "slope",
+      "group": "Slope steepness",
+      "importance": 0.0912
+    },
+    {
+      "feature": "distance_to_river",
+      "group": "Terrain relief",
+      "importance": 0.0906
+    },
+    {
+      "feature": "rainfall_anomaly",
+      "group": "Antecedent rainfall",
+      "importance": 0.0878
+    },
+    {
+      "feature": "rainfall_7d",
+      "group": "Antecedent rainfall",
+      "importance": 0.0835
+    },
+    {
+      "feature": "rainfall_72h",
+      "group": "Antecedent rainfall",
+      "importance": 0.0718
+    },
+    {
+      "feature": "elevation",
+      "group": "Terrain relief",
+      "importance": 0.0699
+    },
+    {
+      "feature": "temperature",
+      "group": "Weather conditions",
+      "importance": 0.0671
+    },
+    {
+      "feature": "humidity",
+      "group": "Weather conditions",
+      "importance": 0.0634
+    },
+    {
+      "feature": "vegetation_index",
+      "group": "Soil and land cover",
+      "importance": 0.0632
+    },
+    {
+      "feature": "rainfall_24h",
+      "group": "Heavy rainfall",
+      "importance": 0.0592
+    },
+    {
+      "feature": "rainfall_6h",
+      "group": "Heavy rainfall",
+      "importance": 0.0435
+    },
+    {
+      "feature": "historical_landslide_count",
+      "group": "Historical activity",
+      "importance": 0.0434
+    },
+    {
+      "feature": "land_cover",
+      "group": "Soil and land cover",
+      "importance": 0.0346
+    },
+    {
+      "feature": "rainfall_1h",
+      "group": "Heavy rainfall",
+      "importance": 0.0231
+    },
+    {
+      "feature": "soil_type",
+      "group": "Soil and land cover",
+      "importance": 0.0114
+    }
+  ],
+  "band_distribution": {
+    "counts": {
+      "VERY LOW": 3153,
+      "LOW": 210,
+      "MODERATE": 114,
+      "HIGH": 62,
+      "CRITICAL": 21
+    },
+    "percent": {
+      "VERY LOW": 88.57,
+      "LOW": 5.9,
+      "MODERATE": 3.2,
+      "HIGH": 1.74,
+      "CRITICAL": 0.59
+    },
+    "score_min": 0.24,
+    "score_p50": 4.57,
+    "score_p95": 42.91,
+    "score_max": 92.96
+  },
+  "confidence_reference": {
+    "note": "Member disagreement in log-odds on held-out rows; predict.py scales the reported confidence against spread_p90.",
+    "spread_p50": 0.429,
+    "spread_p90": 0.6675,
+    "spread_max": 1.3046
+  },
+  "training_summary": [
+    {
+      "feature": "rainfall_1h",
+      "mean": 1.1206,
+      "std": 4.7207,
+      "min": 0.0,
+      "p50": 0.0,
+      "max": 171.88
+    },
+    {
+      "feature": "rainfall_6h",
+      "mean": 6.7534,
+      "std": 15.9853,
+      "min": 0.0,
+      "p50": 0.89,
+      "max": 351.56
+    },
+    {
+      "feature": "rainfall_24h",
+      "mean": 27.2913,
+      "std": 51.2477,
+      "min": 0.0,
+      "p50": 8.8,
+      "max": 1193.12
+    },
+    {
+      "feature": "rainfall_72h",
+      "mean": 81.8956,
+      "std": 134.9737,
+      "min": 0.0,
+      "p50": 32.64,
+      "max": 2500.0
+    },
+    {
+      "feature": "rainfall_7d",
+      "mean": 190.4378,
+      "std": 290.7265,
+      "min": 0.0,
+      "p50": 82.275,
+      "max": 4000.0
+    },
+    {
+      "feature": "rainfall_anomaly",
+      "mean": 2.7452,
+      "std": 2.5109,
+      "min": 0.0,
+      "p50": 1.976,
+      "max": 12.0
+    },
+    {
+      "feature": "elevation",
+      "mean": 1107.2913,
+      "std": 593.6472,
+      "min": 151.2316,
+      "p50": 1047.7853,
+      "max": 3773.4542
+    },
+    {
+      "feature": "slope",
+      "mean": 34.3694,
+      "std": 7.6656,
+      "min": 10.3935,
+      "p50": 34.3775,
+      "max": 57.8217
+    },
+    {
+      "feature": "soil_moisture",
+      "mean": 19.0757,
+      "std": 8.9662,
+      "min": 4.0,
+      "p50": 17.66,
+      "max": 55.64
+    },
+    {
+      "feature": "temperature",
+      "mean": 18.8295,
+      "std": 7.2513,
+      "min": -7.41,
+      "p50": 19.0,
+      "max": 35.82
+    },
+    {
+      "feature": "humidity",
+      "mean": 70.5389,
+      "std": 11.2272,
+      "min": 49.2,
+      "p50": 66.6,
+      "max": 100.0
+    },
+    {
+      "feature": "vegetation_index",
+      "mean": 0.6325,
+      "std": 0.185,
+      "min": 0.02,
+      "p50": 0.6593,
+      "max": 0.95
+    },
+    {
+      "feature": "historical_landslide_count",
+      "mean": 12.5853,
+      "std": 7.1229,
+      "min": 2.0,
+      "p50": 11.0,
+      "max": 40.0
+    },
+    {
+      "feature": "distance_to_river",
+      "mean": 3.8606,
+      "std": 3.2208,
+      "min": 0.1422,
+      "p50": 2.8632,
+      "max": 15.6644
+    },
+    {
+      "feature": "soil_type",
+      "mean": 4.4801,
+      "std": 1.8894,
+      "min": 0.0,
+      "p50": 5.0,
+      "max": 7.0
+    },
+    {
+      "feature": "land_cover",
+      "mean": 2.7777,
+      "std": 1.895,
+      "min": 0.0,
+      "p50": 2.0,
+      "max": 7.0
+    }
+  ],
+  "data_provenance": {
+    "data_mode": "DEMO",
+    "feature_source": "SIMULATED - hourly weather process in ml/hydrology.py over the approximate terrain table in ml/data/regions_seed.py",
+    "label_source": "SYNTHETIC - Bernoulli draws from the documented slope-stability model in ml/physics.py, plus 0.5% two-way observation noise",
+    "real_world_validated": false,
+    "notice": "Every metric here measures how well the model recovers ml/physics.py from noisy samples of it. None of them is evidence of real-world landslide forecast skill, and no prediction from this model should be presented as an observed or verified forecast.",
+    "replace_with": "GSI National Landslide Susceptibility Mapping inventory for labels, IMD gridded rainfall for weather, Bhuvan/SRTM/Cartosat DEM for terrain; swap ml/data/generate_dataset.py for a loader and nothing downstream changes"
+  },
+  "intended_use": "Screening and triage of landslide hazard across monitored regions, and interactive what-if exploration. Decision support only.",
+  "limitations": [
+    "Trained on simulated data, so it reproduces a physical model rather than the observed landslide record.",
+    "Hourly resolution and regional terrain averages - it cannot resolve an individual slope or a specific building.",
+    "No earthquake, reservoir drawdown, blasting or excavation triggers are represented.",
+    "Rainfall beyond the training range is clipped at the documented BOUNDS, so extreme what-if answers saturate rather than extrapolate.",
+    "Decision support only: it does not replace inspection by a qualified geotechnical engineer."
+  ],
+  "members": 5
+}

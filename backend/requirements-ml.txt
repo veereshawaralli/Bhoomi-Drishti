@@ -1,0 +1,39 @@
+# ---------------------------------------------------------------------------
+# Bhoomi-Drishti training extras - OPTIONAL
+#
+# None of this is needed to run the platform. ml/model.pkl is committed and is
+# a pure-NumPy gradient-boosted ensemble, so the API scores, explains and
+# forecasts with requirements.txt alone.
+#
+# Install this file only to regenerate the dataset or retrain:
+#     pip install -r requirements-ml.txt
+#     python ml/data/generate_dataset.py
+#     python ml/train_model.py
+#
+# Every package here is optional in code as well as in name:
+#
+#   pandas          dataset generation and the training report
+#   scikit-learn    HistGradientBoosting ensemble members
+#   xgboost         preferred ensemble members, and TreeSHAP contributions
+#   joblib          faster model serialisation when present
+#   shap            exact Shapley values for the explanation panel
+#
+# ml/train_model.py tries xgboost, then scikit-learn, then its own NumPy
+# implementation, and reports which one it used. ml/explain.py tries shap, then
+# XGBoost's built-in TreeSHAP, then exact tree-path contributions. Nothing here
+# is load-bearing: a laptop where these wheels will not install still trains a
+# real model and still gets a real explanation. Only the `method` label in the
+# API response changes.
+#
+# These are the packages most likely to lag a brand-new CPython release, which
+# is exactly why they are not in requirements.txt. To find out quickly rather
+# than watching a doomed source build, add --only-binary=:all:
+# ---------------------------------------------------------------------------
+
+-r requirements.txt
+
+pandas>=2.2,<3
+scikit-learn>=1.5,<2
+xgboost>=2.1,<4
+joblib>=1.4,<2
+shap>=0.46,<1

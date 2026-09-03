@@ -1,0 +1,4 @@
+# Optional: only needed when DATABASE_URL points at PostgreSQL/PostGIS
+# instead of the default SQLite file.
+-r requirements.txt
+psycopg[binary]>=3.2,<4

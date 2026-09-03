@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# Bhoomi-Drishti backend runtime requirements
+#
+# Everything needed to SERVE the API. The trained model in ml/model.pkl is a
+# plain pickle of a pure-NumPy ensemble, so scoring, explaining and forecasting
+# all work with nothing on this list beyond NumPy itself.
+#
+# Retraining is a separate, optional install:
+#     pip install -r requirements-ml.txt
+# PostgreSQL / PostGIS instead of the default SQLite file:
+#     pip install -r requirements-postgres.txt
+#
+# Version ranges rather than exact pins, deliberately. Exact pins look
+# reproducible and behave badly: a pin chosen today has no wheel for the Python
+# that ships eighteen months from now, so pip falls back to building from
+# source and the install dies inside a C compiler for reasons that have nothing
+# to do with this project. The upper bounds stop a future major version, which
+# is where breaking changes are allowed to live. For a byte-identical
+# environment use requirements-lock.txt.
+#
+# Tested on CPython 3.10 - 3.13. Newer interpreters are expected to work; if a
+# dependency has no wheel for yours yet, pip will say so by name.
+# ---------------------------------------------------------------------------
+
+# --- Web / API -------------------------------------------------------------
+fastapi>=0.115,<1
+uvicorn[standard]>=0.34,<1
+pydantic>=2.9,<3
+pydantic-settings>=2.7,<3
+python-multipart>=0.0.20,<1
+
+# --- Database --------------------------------------------------------------
+SQLAlchemy>=2.0.36,<3
+
+# --- HTTP client (live weather API) ---------------------------------------
+httpx>=0.28,<1
+
+# --- Numerics --------------------------------------------------------------
+# The model, the physics layer and the photograph screening all run on NumPy.
+numpy>=1.26,<3
+
+# --- Computer vision (citizen photo screening) ----------------------------
+Pillow>=11,<13

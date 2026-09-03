@@ -1,0 +1,61 @@
+version: "3.9"
+
+# ---------------------------------------------------------------------------
+# One-command stack: PostGIS + FastAPI + Vite/nginx frontend.
+#   docker compose up --build
+#   -> frontend  http://localhost:5173
+#   -> API docs  http://localhost:8000/docs
+# The ML model is trained inside the backend image at build time.
+# ---------------------------------------------------------------------------
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: landslide-db
+    environment:
+      POSTGRES_USER: landslide
+      POSTGRES_PASSWORD: landslide
+      POSTGRES_DB: landslide
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U landslide -d landslide"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: landslide-api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://landslide:landslide@db:5432/landslide
+      USE_LIVE_WEATHER: "false"
+      MODEL_PATH: /app/ml/model.pkl
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+      LOG_LEVEL: INFO
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads:/app/backend/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: landslide-web
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  dbdata:
+  uploads:

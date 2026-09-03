@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ base */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    /* A faint topographic wash so large empty panels do not read as a void.
+       Two offset radial gradients, not an image, so there is nothing to load. */
+    background-image:
+      radial-gradient(900px 600px at 15% -10%, rgba(72, 201, 230, 0.06), transparent 70%),
+      radial-gradient(700px 500px at 95% 5%, rgba(200, 30, 78, 0.05), transparent 70%);
+    background-attachment: fixed;
+  }
+
+  /* Numbers that update in place must not reflow their neighbours. */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  ::selection {
+    background: rgba(72, 201, 230, 0.3);
+  }
+
+  *:focus-visible {
+    outline: 2px solid #48c9e6;
+    outline-offset: 2px;
+  }
+
+  /* Scrollbars in the chrome colour, so panels do not sprout white bars. */
+  * {
+    scrollbar-color: #2a4a63 transparent;
+    scrollbar-width: thin;
+  }
+
+  *::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #24405a;
+    border-radius: 99px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: #2f5474;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------ components */
+
+@layer components {
+  /* The instrument-panel surface every card is built from. */
+  .panel {
+    @apply rounded-panel border border-hairline bg-panel/80 shadow-bezel backdrop-blur-sm;
+  }
+
+  .panel-head {
+    @apply flex items-center justify-between gap-3 border-b border-hairline px-4 py-2.5;
+  }
+
+  .panel-title {
+    @apply font-display text-2xs font-semibold uppercase tracking-[0.14em] text-dim;
+  }
+
+  /* Small monospaced tag used for data-mode, status and band chips. */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-sm border px-1.5 py-0.5 font-mono text-2xs
+      font-medium uppercase tracking-wider;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-panel border border-hairbright
+      bg-raised px-3 py-2 font-display text-xs font-semibold uppercase tracking-wider
+      text-ink transition-colors hover:border-accent/60 hover:text-accent
+      focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-40
+      disabled:hover:border-hairbright disabled:hover:text-ink;
+  }
+
+  .btn-accent {
+    @apply border-accent/50 bg-accent/10 text-accent hover:bg-accent/20;
+  }
+
+  .btn-danger {
+    @apply border-risk-critical/60 bg-risk-critical/15 text-risk-critical
+      hover:bg-risk-critical/25 hover:text-risk-critical;
+  }
+
+  .btn-ghost {
+    @apply border-transparent bg-transparent text-dim hover:text-accent;
+  }
+
+  .field {
+    @apply w-full rounded-panel border border-hairline bg-ground/70 px-3 py-2 font-sans text-sm
+      text-ink placeholder:text-faint focus:border-accent/60 focus:outline-none;
+  }
+
+  /* Range inputs drive the what-if simulator. Browsers paint them with their own
+     furniture even under `color-scheme: dark`, and the thumb only reachable
+     through vendor pseudo-elements, which Tailwind utilities cannot target - so
+     this one control is styled in CSS rather than in the component. */
+  .slider {
+    @apply w-full cursor-pointer rounded-full border border-hairline bg-raised;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    border: 1px solid #7fdcf0;
+    background: #48c9e6;
+    box-shadow: 0 0 0 3px rgba(72, 201, 230, 0.16);
+    cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+    border-radius: 999px;
+    border: 1px solid #7fdcf0;
+    background: #48c9e6;
+    cursor: pointer;
+  }
+
+  .slider:disabled {
+    @apply cursor-not-allowed opacity-40;
+  }
+
+  .label {
+    @apply mb-1 block font-display text-2xs font-semibold uppercase tracking-[0.12em] text-faint;
+  }
+
+  /* A hairline rule that fades out, for separating readouts inside a panel. */
+  .rule {
+    @apply h-px w-full bg-gradient-to-r from-hairbright via-hairline to-transparent;
+  }
+}
+
+/* ---------------------------------------------------------------- leaflet */
+/* Leaflet ships light chrome. Restyled here rather than in component files
+   because these are global class names the library writes itself. */
+
+.leaflet-container {
+  background: #061019;
+  font-family: inherit;
+  outline: none;
+}
+
+/* Carto's dark basemap is muted; a touch of contrast keeps ridgelines legible
+   under the risk markers without making the tiles compete with them. */
+.leaflet-tile-pane {
+  filter: saturate(0.75) contrast(1.06) brightness(0.94);
+}
+
+.leaflet-bar,
+.leaflet-control-zoom {
+  border: 1px solid #1c3346 !important;
+  box-shadow: none !important;
+}
+
+.leaflet-bar a,
+.leaflet-control-zoom a {
+  background: #0d1b29 !important;
+  color: #dce7f0 !important;
+  border-bottom-color: #1c3346 !important;
+}
+
+.leaflet-bar a:hover {
+  background: #112436 !important;
+  color: #48c9e6 !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(8, 18, 28, 0.82) !important;
+  color: #5c7691 !important;
+  font-size: 10px !important;
+  padding: 1px 6px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #8aa2b8 !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #0d1b29;
+  color: #dce7f0;
+  border: 1px solid #2a4a63;
+  border-radius: 3px;
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.9);
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.leaflet-popup-close-button {
+  color: #5c7691 !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #48c9e6 !important;
+}
+
+.leaflet-tooltip {
+  background: rgba(8, 18, 28, 0.94);
+  border: 1px solid #2a4a63;
+  border-radius: 3px;
+  color: #dce7f0;
+  box-shadow: none;
+  font-size: 11px;
+  padding: 4px 7px;
+}
+
+.leaflet-tooltip::before {
+  display: none;
+}
+
+/* Risk markers are drawn as divIcons; the wrapper must not paint over them. */
+.risk-marker {
+  background: transparent;
+  border: 0;
+}
+
+

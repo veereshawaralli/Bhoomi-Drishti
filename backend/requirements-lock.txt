@@ -1,0 +1,39 @@
+# ---------------------------------------------------------------------------
+# Byte-identical environment - the exact versions this project was built and
+# verified against, on CPython 3.10 - 3.13.
+#
+#     pip install -r requirements-lock.txt
+#
+# Use this when you want reproducibility and control the interpreter: a CI job,
+# a Docker image, a machine that must match another machine. Use
+# requirements.txt otherwise, because an exact pin has no wheel for a Python
+# released after the pin was chosen, and pip's answer to a missing wheel is to
+# compile from source, which fails for reasons unrelated to this project.
+#
+# Includes the optional training extras, so this file reproduces the
+# environment that produced ml/model.pkl and the figures in docs/ML.md.
+# ---------------------------------------------------------------------------
+
+# --- Web / API -------------------------------------------------------------
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+python-multipart==0.0.20
+
+# --- Database --------------------------------------------------------------
+SQLAlchemy==2.0.36
+
+# --- HTTP client -----------------------------------------------------------
+httpx==0.28.1
+
+# --- Numerics / ML ---------------------------------------------------------
+numpy==2.1.3
+pandas==2.2.3
+scikit-learn==1.6.1
+xgboost==2.1.4
+joblib==1.4.2
+shap==0.46.0
+
+# --- Computer vision -------------------------------------------------------
+Pillow==11.0.0
